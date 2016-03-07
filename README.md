@@ -1,5 +1,4 @@
 Soroban (算盤/Abacus)
-
 ===========
 
 Calculator Library in Java. This library is my attempt at the infamous "calculator app"
