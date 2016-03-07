@@ -1,7 +1,5 @@
 package com.kennycason.soroban.parser;
 
-import com.gs.collections.api.map.MutableMap;
-import com.gs.collections.impl.factory.Maps;
 import com.kennycason.soroban.lexer.exception.EndOfStreamException;
 import com.kennycason.soroban.lexer.token.Token;
 import com.kennycason.soroban.lexer.token.TokenStream;
@@ -11,35 +9,18 @@ import com.kennycason.soroban.parser.expression.Expression;
 import com.kennycason.soroban.parser.parselets.infix.InfixParselet;
 import com.kennycason.soroban.parser.parselets.prefix.PrefixParselet;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by kenny on 3/1/16.
  *
- * e.g.
- * pure infix -> postfix
- * (((1 + 2) * 3) + 6) / (2 + 3) ->
- *            (/ (+ (* (+ 1 2) 3) 6) (+ 2 3))
- *
- * e.g.
- * mixed infix/postfix -> postfix
- *
- * sin(60 + 30) / cos(45) ->
- *    (/ (sin (+ 60 30)) (cos 45))
- *
- * 1 + 1 -> (+ 1 1)
- * 1 + 2 * 4 -> (1 + (2 * 4)) -> (+ 1 (* 2 4))
- * sin(x) + cos(y) -> (+ (sin x) (cos y))
- * (+ 1 1) -> (add 1 1)
- *
- * note: that sin(x) is already basically postfix, we are just doing a minor rewrite
- * note: we must know the context of the "-" sign. is it minus? or negative?.
- * note: we must know the difference between arithmetic parenthesis and function parenthesis
- *
- *
+ * A parser that can handle prefix, postfix, infix, mixfix, precedence, left-right associativity in a single pass.
  */
 public class PrattParser {
 
-    private final MutableMap<TokenType, PrefixParselet> prefixParselets = Maps.mutable.empty();
-    private final MutableMap<TokenType, InfixParselet> infixParselets = Maps.mutable.empty();
+    private final Map<TokenType, PrefixParselet> prefixParselets = new HashMap<>();
+    private final Map<TokenType, InfixParselet> infixParselets = new HashMap<>();
 
     private final TokenStream tokenStream;
 

@@ -1,13 +1,14 @@
 package com.kennycason.soroban.parser.parselets.infix;
 
-import com.gs.collections.api.list.MutableList;
-import com.gs.collections.impl.list.mutable.FastList;
 import com.kennycason.soroban.lexer.token.Token;
 import com.kennycason.soroban.lexer.token.TokenType;
-import com.kennycason.soroban.parser.Precedence;
 import com.kennycason.soroban.parser.PrattParser;
+import com.kennycason.soroban.parser.Precedence;
 import com.kennycason.soroban.parser.expression.Expression;
 import com.kennycason.soroban.parser.expression.FunctionCallExpression;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by kenny on 3/3/16.
@@ -17,7 +18,7 @@ import com.kennycason.soroban.parser.expression.FunctionCallExpression;
 public class FunctionCallParslet implements InfixParselet {
     @Override
     public Expression parse(final PrattParser parser, final Expression left, final Token token) {
-        final MutableList<Expression> parameters = new FastList<>();
+        final List<Expression> parameters = new ArrayList<>();
 
         if (parser.peek().getType() == TokenType.RIGHT_PAREN) {
             new FunctionCallExpression(left, parameters);

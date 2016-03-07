@@ -1,7 +1,5 @@
 package com.kennycason.soroban.eval;
 
-import com.gs.collections.api.map.MutableMap;
-import com.gs.collections.impl.factory.Maps;
 import com.kennycason.soroban.FunctionDictionary;
 import com.kennycason.soroban.eval.exception.EvaluatorException;
 import com.kennycason.soroban.function.binary.BinaryFunction;
@@ -11,6 +9,9 @@ import com.kennycason.soroban.lexer.token.TokenType;
 import com.kennycason.soroban.number.BigRational;
 import com.kennycason.soroban.parser.expression.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by kenny on 3/3/16.
  *
@@ -18,7 +19,7 @@ import com.kennycason.soroban.parser.expression.*;
  */
 public class ExpressionEvaluator {
 
-    private MutableMap<String, BigRational> variables = Maps.mutable.empty();
+    private Map<String, BigRational> variables = new HashMap<>();
 
     public Expression evaluate(final Expression expression) {
         if (expression instanceof NumberExpression) {

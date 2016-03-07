@@ -1,9 +1,11 @@
 package com.kennycason.soroban.lexer.tokenizer;
 
-import com.gs.collections.impl.list.mutable.FastList;
 import com.kennycason.soroban.lexer.exception.LexerException;
 import com.kennycason.soroban.lexer.token.Token;
 import com.kennycason.soroban.lexer.token.TokenType;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by kenny on 2/29/16.
@@ -11,8 +13,8 @@ import com.kennycason.soroban.lexer.token.TokenType;
 public class ExpressionTokenizer {
     private final NumberTokenizer numberTokenizer = new NumberTokenizer();
 
-    public FastList<Token> tokenize(final CharacterStream tokenStream) {
-        final FastList<Token> tokens = new FastList<>();
+    public List<Token> tokenize(final CharacterStream tokenStream) {
+        final List<Token> tokens = new ArrayList<>();
 
         while (tokenStream.hasNext()) {
             final char token = Character.toLowerCase(tokenStream.peek());
