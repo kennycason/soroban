@@ -14,10 +14,8 @@ Contents:
    - Lots of tests.
    
 Todo:
-   - Add constants
    - Simplify fractions.
    - Some cases auto convert from integer to decimal in strange ways, investigate.
-   - Add pretty expression printing
    - Add assignment for variables / expressions
   
     

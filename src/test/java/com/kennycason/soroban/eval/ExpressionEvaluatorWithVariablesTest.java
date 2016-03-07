@@ -10,6 +10,7 @@ import com.kennycason.soroban.parser.expression.Expression;
 import com.kennycason.soroban.parser.expression.InfixFunctionExpression;
 import com.kennycason.soroban.parser.expression.NumberExpression;
 import com.kennycason.soroban.parser.expression.VariableExpression;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,6 +27,11 @@ public class ExpressionEvaluatorWithVariablesTest {
     @Before
     public void before() {
         VariableDictionary.clearAll();
+    }
+
+    @After
+    public void after() {
+        VariableDictionary.clearAll();;
     }
 
     @Test

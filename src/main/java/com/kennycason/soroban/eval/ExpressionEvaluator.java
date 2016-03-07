@@ -40,7 +40,7 @@ public class ExpressionEvaluator {
         else if (expression instanceof FunctionCallExpression) {
             return evaluate((FunctionCallExpression) expression);
         }
-        throw new IllegalStateException("Not finished");
+        throw new IllegalStateException("Unhandled expression type: " + expression.getClass());
     }
 
     private Expression evaluate(final PrefixUnaryFunctionExpression expression) {

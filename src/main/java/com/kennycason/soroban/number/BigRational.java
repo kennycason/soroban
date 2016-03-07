@@ -72,6 +72,9 @@ public class BigRational {
     @Override
     public String toString() {
         if (isFraction()) {
+            if (denominator.equals(BigInteger.ONE)) {
+                return numerator.toString();
+            }
             return numerator + "/" + denominator;
         }
         return value.toString();
