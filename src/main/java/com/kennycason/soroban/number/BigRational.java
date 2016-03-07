@@ -9,6 +9,8 @@ import java.math.RoundingMode;
  * Created by kenny on 3/6/16.
  */
 public class BigRational {
+    public static final BigRational ZERO = new BigRational(BigInteger.ZERO);
+
     private final BigInteger numerator;
     private final BigInteger denominator;
     private final BigDecimal value;

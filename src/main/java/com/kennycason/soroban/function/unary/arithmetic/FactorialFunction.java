@@ -1,6 +1,6 @@
 package com.kennycason.soroban.function.unary.arithmetic;
 
-import com.kennycason.soroban.eval.exception.EvaluatorException;
+import com.kennycason.soroban.eval.exception.EvaluationException;
 import com.kennycason.soroban.function.unary.UnaryFunction;
 import com.kennycason.soroban.number.BigRational;
 
@@ -24,7 +24,7 @@ public class FactorialFunction implements UnaryFunction {
         if (input.getDenominator().equals(BigInteger.ONE)) {
             return applyToWholeNumber(input.getNumerator());
         }
-        throw new EvaluatorException("Can only perform factorial on integers for now");
+        throw new EvaluationException("Can only perform factorial on integers for now");
     }
 
     // TODO implement later
@@ -32,7 +32,7 @@ public class FactorialFunction implements UnaryFunction {
         if (input.getValue().signum() == 0) {
             return applyToWholeNumber(input.getValue());
         }
-        throw new EvaluatorException("Can only perform factorial on integers for now");
+        throw new EvaluationException("Can only perform factorial on integers for now");
     }
 
     private static BigRational applyToWholeNumber(final BigDecimal input) {

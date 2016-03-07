@@ -15,5 +15,6 @@ public enum  TokenType {
     DIVIDE,
     EXPONENT,
 
-    EXCLAMATION
+    EXCLAMATION,
+    COMMA
 }

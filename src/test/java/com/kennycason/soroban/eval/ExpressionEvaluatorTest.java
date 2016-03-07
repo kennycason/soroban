@@ -111,6 +111,20 @@ public class ExpressionEvaluatorTest {
                 ((NumberExpression) expression).getValue().getValue().doubleValue(), DELTA);
     }
 
+    @Test
+    public void addPoly() {
+        final Expression expression = evaluate("add(1, 2, 3, 4, 5)");
+        assertTrue(expression instanceof NumberExpression);
+        assertEquals(new BigRational(15), ((NumberExpression) expression).getValue());
+    }
+
+    @Test
+    public void addPolyWithFunctions() {
+        final Expression expression = evaluate("add(1 + 1, 1 + 1)");
+        assertTrue(expression instanceof NumberExpression);
+        assertEquals(new BigRational(4), ((NumberExpression) expression).getValue());
+    }
+
     private Expression evaluate(final String expr) {
         return expressionEvaluator.evaluate(
                         new SorobanParser(

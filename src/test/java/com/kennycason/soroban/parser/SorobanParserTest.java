@@ -181,6 +181,39 @@ public class SorobanParserTest {
         assertEquals("n", ((VariableExpression) postfixUnaryFunctionExpression.getExpression()).getValue());
     }
 
+    @Test
+    public void polyAdd() {
+        final PrattParser parser = buildParser("add(a, b, c)");
+        final Expression expression = parser.parseExpression();
+
+        final FunctionCallExpression functionCallExpression = (FunctionCallExpression) expression;
+        assertEquals("add", ((VariableExpression) functionCallExpression.getFunction()).getValue());
+        assertEquals(3, functionCallExpression.getExpressions().size());
+        assertEquals("a", ((VariableExpression) functionCallExpression.getExpressions().get(0)).getValue());
+        assertEquals("b", ((VariableExpression) functionCallExpression.getExpressions().get(1)).getValue());
+        assertEquals("c", ((VariableExpression) functionCallExpression.getExpressions().get(2)).getValue());
+    }
+
+    @Test
+    public void polyAddWithNestedExpressions() {
+        final PrattParser parser = buildParser("add((a + a), (b + b))");
+        final Expression expression = parser.parseExpression();
+
+        final FunctionCallExpression functionCallExpression = (FunctionCallExpression) expression;
+        assertEquals("add", ((VariableExpression) functionCallExpression.getFunction()).getValue());
+        assertEquals(2, functionCallExpression.getExpressions().size());
+        final InfixFunctionExpression left = (InfixFunctionExpression) functionCallExpression.getExpressions().get(0);
+        final InfixFunctionExpression right = (InfixFunctionExpression) functionCallExpression.getExpressions().get(1);
+
+        assertEquals("+", left.getFunction().getValue());
+        assertEquals("a", ((VariableExpression) left.getLeft()).getValue());
+        assertEquals("a", ((VariableExpression) left.getRight()).getValue());
+
+        assertEquals("+", right.getFunction().getValue());
+        assertEquals("b", ((VariableExpression) right.getLeft()).getValue());
+        assertEquals("b", ((VariableExpression) right.getRight()).getValue());
+    }
+
     private PrattParser buildParser(final String expr) {
         return new SorobanParser(
                 new TokenStream(

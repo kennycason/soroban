@@ -2,6 +2,8 @@ package com.kennycason.soroban;
 
 import com.kennycason.soroban.function.binary.BinaryFunction;
 import com.kennycason.soroban.function.binary.arithmetic.*;
+import com.kennycason.soroban.function.poly.PolyFunction;
+import com.kennycason.soroban.function.poly.arithmetic.AddPolyFunction;
 import com.kennycason.soroban.function.unary.UnaryFunction;
 import com.kennycason.soroban.function.unary.arithmetic.*;
 import com.kennycason.soroban.function.unary.trignometry.*;
@@ -53,7 +55,10 @@ public class FunctionDictionary {
         put("/", new DivideFunction());
         put("+", new AddFunction());
         put("-", new SubtractFunction());
+    }};
 
+    public static final Map<String, PolyFunction> POLY_FUNCTIONS = new HashMap<String, PolyFunction>() {{
+        put("add", new AddPolyFunction());
     }};
 
 }

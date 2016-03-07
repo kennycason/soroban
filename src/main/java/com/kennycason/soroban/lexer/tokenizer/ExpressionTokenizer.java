@@ -44,6 +44,9 @@ public class ExpressionTokenizer {
                 case '^':
                     tokens.add(new Token(String.valueOf(tokenStream.next()), TokenType.EXPONENT));
                     continue;
+                case ',':
+                    tokens.add(new Token(String.valueOf(tokenStream.next()), TokenType.COMMA));
+                    continue;
                 case ' ':
                     tokenStream.next(); // ignore token
                     continue;
