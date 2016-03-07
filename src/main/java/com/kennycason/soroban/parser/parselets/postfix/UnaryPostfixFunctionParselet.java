@@ -1,4 +1,4 @@
-package com.kennycason.soroban.parser.parselets.prefix;
+package com.kennycason.soroban.parser.parselets.postfix;
 
 import com.kennycason.soroban.lexer.token.Token;
 import com.kennycason.soroban.parser.PrattParser;
@@ -9,11 +9,11 @@ import com.kennycason.soroban.parser.parselets.infix.InfixParselet;
 /**
  * Created by kenny on 3/3/16.
  */
-public class PostfixUnaryFunctionParselet implements InfixParselet {
+public class UnaryPostfixFunctionParselet implements InfixParselet {
 
     private final int precedence;
 
-    public PostfixUnaryFunctionParselet(final int precedence) {
+    public UnaryPostfixFunctionParselet(final int precedence) {
         this.precedence = precedence;
     }
 

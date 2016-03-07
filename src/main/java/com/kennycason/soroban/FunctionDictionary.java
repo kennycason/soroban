@@ -13,52 +13,85 @@ import java.util.Map;
 
 /**
  * Created by kenny on 3/1/16.
+ *
+ * An extensible function dictionary with presets
  */
 public class FunctionDictionary {
-    public static final Map<String, UnaryFunction> UNARY_PREFIX_FUNCTIONS = new HashMap<String, UnaryFunction>() {{
-        put("neg", new NegativeFunction());
-        put("-", new NegativeFunction());
-        put("fact", new FactorialFunction());
-        put("ln", new LnFunction());
-        put("log10", new Log10Function());
-        put("floor", new FloorFunction());
-        put("ceil", new CeilFunction());
+    private static final Map<String, UnaryFunction> UNARY_PREFIX_FUNCTIONS = new HashMap<>();
+    private static final Map<String, UnaryFunction> UNARY_POSTFIX_FUNCTIONS = new HashMap<>();
+    private static final Map<String, BinaryFunction> BINARY_FUNCTIONS = new HashMap<>();
+    private static final Map<String, PolyFunction> POLY_FUNCTIONS = new HashMap<>();
+    static {
+        registerUnaryPrefix("neg", new NegativeFunction());
+        registerUnaryPrefix("-", new NegativeFunction());
+        registerUnaryPrefix("fact", new FactorialFunction());
+        registerUnaryPrefix("ln", new LnFunction());
+        registerUnaryPrefix("log10", new Log10Function());
+        registerUnaryPrefix("floor", new FloorFunction());
+        registerUnaryPrefix("ceil", new CeilFunction());
+        registerUnaryPrefix("deg", new RadiansToDegreesFunction());
+        registerUnaryPrefix("rad", new DegreesToRadiansFunction());
 
-        put("sin", new SineFunction());
-        put("cos", new CosineFunction());
-        put("tan", new TangentFunction());
-        put("asin", new ArcSineFunction());
-        put("acos", new ArcCosineFunction());
-        put("atan", new ArcTangentFunction());
-        put("sinh", new HyperbolicSineFunction());
-        put("cosh", new HyperbolicCosineFunction());
-        put("tanh", new HyperbolicTangentFunction());
+        registerUnaryPrefix("sin", new SineFunction());
+        registerUnaryPrefix("cos", new CosineFunction());
+        registerUnaryPrefix("tan", new TangentFunction());
+        registerUnaryPrefix("asin", new ArcSineFunction());
+        registerUnaryPrefix("acos", new ArcCosineFunction());
+        registerUnaryPrefix("atan", new ArcTangentFunction());
+        registerUnaryPrefix("sinh", new HyperbolicSineFunction());
+        registerUnaryPrefix("cosh", new HyperbolicCosineFunction());
+        registerUnaryPrefix("tanh", new HyperbolicTangentFunction());
 
-        put("deg", new RadiansToDegreesFunction());
-        put("rad", new DegreesToRadiansFunction());
-    }};
 
-    public static final Map<String, UnaryFunction> UNARY_POSTFIX_FUNCTIONS = new HashMap<String, UnaryFunction>() {{
-        put("!", new FactorialFunction());
-    }};
+        registerUnaryPostfix("!", new FactorialFunction());
 
-    public static final Map<String, BinaryFunction> BINARY_FUNCTIONS = new HashMap<String, BinaryFunction>() {{
-        put("pow", new ExponentFunction());
-        put("mul", new MultiplyFunction());
-        put("div", new DivideFunction());
-        put("add", new AddFunction());
-        put("sub", new SubtractFunction());
 
+        registerBinary("pow", new ExponentFunction());
+        registerBinary("mul", new MultiplyFunction());
+        registerBinary("div", new DivideFunction());
+        registerBinary("add", new AddFunction());
+        registerBinary("sub", new SubtractFunction());
         // short names commonly used in infix functions
-        put("^", new ExponentFunction());
-        put("*", new MultiplyFunction());
-        put("/", new DivideFunction());
-        put("+", new AddFunction());
-        put("-", new SubtractFunction());
-    }};
+        registerBinary("^", new ExponentFunction());
+        registerBinary("*", new MultiplyFunction());
+        registerBinary("/", new DivideFunction());
+        registerBinary("+", new AddFunction());
+        registerBinary("-", new SubtractFunction());
 
-    public static final Map<String, PolyFunction> POLY_FUNCTIONS = new HashMap<String, PolyFunction>() {{
-        put("add", new AddPolyFunction());
-    }};
+        registerPoly("add", new AddPolyFunction());
+    }
 
+    private FunctionDictionary() {}
+
+    public static void registerBinary(final String function, final BinaryFunction binaryFunction) {
+        BINARY_FUNCTIONS.put(function, binaryFunction);
+    }
+
+    public static void registerUnaryPrefix(final String function, final UnaryFunction unaryFunction) {
+        UNARY_PREFIX_FUNCTIONS.put(function, unaryFunction);
+    }
+
+    public static void registerUnaryPostfix(final String function, final UnaryFunction unaryFunction) {
+        UNARY_POSTFIX_FUNCTIONS.put(function, unaryFunction);
+    }
+
+    public static void registerPoly(final String function, final PolyFunction polyFunction) {
+        POLY_FUNCTIONS.put(function, polyFunction);
+    }
+
+    public static BinaryFunction getBinary(final String function) {
+        return BINARY_FUNCTIONS.get(function);
+    }
+
+    public static UnaryFunction getUnaryPrefix(final String function) {
+        return UNARY_PREFIX_FUNCTIONS.get(function);
+    }
+
+    public static UnaryFunction getUnaryPostfix(final String function) {
+        return UNARY_POSTFIX_FUNCTIONS.get(function);
+    }
+
+    public static PolyFunction getPoly(final String function) {
+        return POLY_FUNCTIONS.get(function);
+    }
 }

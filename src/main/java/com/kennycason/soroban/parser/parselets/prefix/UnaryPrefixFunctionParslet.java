@@ -10,11 +10,11 @@ import com.kennycason.soroban.parser.expression.PrefixUnaryFunctionExpression;
  *
  * handle generic prefix functions like !n, -n
  */
-public class PrefixUnaryFunctionParslet implements PrefixParselet {
+public class UnaryPrefixFunctionParslet implements PrefixParselet {
 
     private final int precedence;
 
-    public PrefixUnaryFunctionParslet(final int precedence) {
+    public UnaryPrefixFunctionParslet(final int precedence) {
         this.precedence = precedence;
     }
 

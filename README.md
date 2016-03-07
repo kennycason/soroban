@@ -9,6 +9,8 @@ Contents:
    - Expression Evaluator, consumes an expression and attempts to evaluate it recursively. Supports partially solving functions, and variables.
    - Custom function support via the FunctionDictionary class. Unary, Binary, Poly parameter function support.
    - BigRational class which supports fraction/decimal math in attempt to delay loss of precision until as late in the calculation as possible.
+   - Variable Support
+   - Constant Support
    - Lots of tests.
    
 Todo:

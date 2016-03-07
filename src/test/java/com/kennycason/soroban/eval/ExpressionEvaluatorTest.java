@@ -7,7 +7,6 @@ import com.kennycason.soroban.number.BigRational;
 import com.kennycason.soroban.parser.SorobanParser;
 import com.kennycason.soroban.parser.expression.Expression;
 import com.kennycason.soroban.parser.expression.NumberExpression;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigInteger;
@@ -22,11 +21,6 @@ public class ExpressionEvaluatorTest {
     private static final double DELTA = 0.00000005;
     final ExpressionTokenizer expressionTokenizer = new ExpressionTokenizer();
     final ExpressionEvaluator expressionEvaluator = new ExpressionEvaluator();
-
-    @Before
-    public void before() {
-        expressionEvaluator.clearVariables();
-    }
 
     @Test
     public void base10() {

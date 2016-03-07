@@ -1,18 +1,17 @@
 package com.kennycason.soroban.eval;
 
+import com.kennycason.soroban.ConstantDictionary;
 import com.kennycason.soroban.FunctionDictionary;
+import com.kennycason.soroban.VariableDictionary;
 import com.kennycason.soroban.eval.exception.EvaluationException;
 import com.kennycason.soroban.function.binary.BinaryFunction;
 import com.kennycason.soroban.function.poly.PolyFunction;
 import com.kennycason.soroban.function.unary.UnaryFunction;
 import com.kennycason.soroban.lexer.token.Token;
 import com.kennycason.soroban.lexer.token.TokenType;
-import com.kennycason.soroban.number.BigRational;
 import com.kennycason.soroban.parser.expression.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -21,8 +20,6 @@ import java.util.stream.Collectors;
  * partially or completely evaluate an expression.
  */
 public class ExpressionEvaluator {
-
-    private Map<String, BigRational> variables = new HashMap<>();
 
     public Expression evaluate(final Expression expression) {
         if (expression instanceof NumberExpression) {
@@ -50,7 +47,7 @@ public class ExpressionEvaluator {
         final Expression evaulatedExpression = evaluate(expression.getExpression());
 
         if (evaulatedExpression instanceof NumberExpression) {
-            return evaluatePrefixUnaryFunction(expression.getFunction(), (NumberExpression) evaulatedExpression);
+            return evaluateUnaryPrefixFunction(expression.getFunction(), (NumberExpression) evaulatedExpression);
         }
         // if we can't resolve to number, return unsolved expression
         return expression;
@@ -60,7 +57,7 @@ public class ExpressionEvaluator {
         final Expression evaulatedExpression = evaluate(expression.getExpression());
 
         if (evaulatedExpression instanceof NumberExpression) {
-            return evaluatePostfixUnaryFunction(expression.getFunction(), (NumberExpression) evaulatedExpression);
+            return evaluateUnaryPostfixFunction(expression.getFunction(), (NumberExpression) evaulatedExpression);
         }
         // if we can't resolve to number, return unsolved expression
         return expression;
@@ -107,14 +104,17 @@ public class ExpressionEvaluator {
     }
 
     private Expression evaluate(final VariableExpression expression) {
-        if (variables.containsKey(expression.getValue())) {
-            return new NumberExpression(variables.get(expression.getValue()));
+        if (VariableDictionary.isSet(expression.getValue())) {
+            return new NumberExpression(VariableDictionary.get(expression.getValue()));
+        }
+        if (ConstantDictionary.isSet(expression.getValue())) {
+            return new NumberExpression(ConstantDictionary.get(expression.getValue()));
         }
         return expression;
     }
 
     private Expression evaluatePolyFunction(final Token function, final List<Expression> parameters) {
-        final PolyFunction polyFunction = FunctionDictionary.POLY_FUNCTIONS.get(function.getValue());
+        final PolyFunction polyFunction = FunctionDictionary.getPoly(function.getValue());
         if (polyFunction == null) {
             throw new EvaluationException("Function [" + function.getValue() + "] does not exist");
         }
@@ -125,35 +125,27 @@ public class ExpressionEvaluator {
     }
 
     private NumberExpression evaluateBinaryInfixFunction(final Token function, final NumberExpression left, final NumberExpression right) {
-        final BinaryFunction binaryFunction = FunctionDictionary.BINARY_FUNCTIONS.get(function.getValue());
+        final BinaryFunction binaryFunction = FunctionDictionary.getBinary(function.getValue());
         if (binaryFunction == null) {
             throw new EvaluationException("Function [" + function.getValue() + "] does not exist");
         }
         return new NumberExpression(binaryFunction.apply(left.getValue(), right.getValue()));
     }
 
-    private NumberExpression evaluatePostfixUnaryFunction(final Token function, final NumberExpression numberExpression) {
-        final UnaryFunction unaryFunction = FunctionDictionary.UNARY_POSTFIX_FUNCTIONS.get(function.getValue());
+    private NumberExpression evaluateUnaryPostfixFunction(final Token function, final NumberExpression numberExpression) {
+        final UnaryFunction unaryFunction = FunctionDictionary.getUnaryPostfix(function.getValue());
         if (unaryFunction == null) {
             throw new EvaluationException("Function [" + function.getValue() + "] does not exist");
         }
         return new NumberExpression(unaryFunction.apply(numberExpression.getValue()));
     }
 
-    private NumberExpression evaluatePrefixUnaryFunction(final Token function, final NumberExpression numberExpression) {
-        final UnaryFunction unaryFunction = FunctionDictionary.UNARY_PREFIX_FUNCTIONS.get(function.getValue());
+    private NumberExpression evaluateUnaryPrefixFunction(final Token function, final NumberExpression numberExpression) {
+        final UnaryFunction unaryFunction = FunctionDictionary.getUnaryPrefix(function.getValue());
         if (unaryFunction == null) {
             throw new EvaluationException("Prefix function [" + function.getValue() + "] does not exist");
         }
         return new NumberExpression(unaryFunction.apply(numberExpression.getValue()));
-    }
-
-    public void clearVariables() {
-        variables.clear();
-    }
-
-    public void register(final String variable, final BigRational number) {
-        variables.put(variable, number);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.kennycason.soroban.eval;
 
+import com.kennycason.soroban.VariableDictionary;
 import com.kennycason.soroban.lexer.token.TokenStream;
 import com.kennycason.soroban.lexer.tokenizer.CharacterStream;
 import com.kennycason.soroban.lexer.tokenizer.ExpressionTokenizer;
@@ -24,7 +25,7 @@ public class ExpressionEvaluatorWithVariablesTest {
 
     @Before
     public void before() {
-        expressionEvaluator.clearVariables();
+        VariableDictionary.clearAll();
     }
 
     @Test
@@ -33,7 +34,7 @@ public class ExpressionEvaluatorWithVariablesTest {
         assertTrue(expressionEvaluator.evaluate(expression) instanceof InfixFunctionExpression);
 
         // set variable x = 5
-        expressionEvaluator.register("x", new BigRational(5));
+        VariableDictionary.set("x", new BigRational(5));
         final Expression evaluatedExpression = expressionEvaluator.evaluate(expression);
         assertTrue(evaluatedExpression instanceof NumberExpression);
         assertEquals(new BigRational(15), ((NumberExpression) evaluatedExpression).getValue());
@@ -49,7 +50,7 @@ public class ExpressionEvaluatorWithVariablesTest {
         assertTrue(((InfixFunctionExpression) ((InfixFunctionExpression) evaluatedExpression).getLeft()).getRight() instanceof VariableExpression);
 
         // set variable x = 5, partially solve
-        expressionEvaluator.register("x", new BigRational(5));
+        VariableDictionary.set("x", new BigRational(5));
         final Expression evaluatedExpressionWithX = expressionEvaluator.evaluate(expression);
         assertTrue(evaluatedExpressionWithX instanceof InfixFunctionExpression);
         assertTrue(((InfixFunctionExpression) evaluatedExpressionWithX).getRight() instanceof NumberExpression);
@@ -57,7 +58,7 @@ public class ExpressionEvaluatorWithVariablesTest {
         assertTrue(((InfixFunctionExpression) ((InfixFunctionExpression) evaluatedExpressionWithX).getLeft()).getRight() instanceof VariableExpression);
 
         // set varialbe y = 10, completely solve
-        expressionEvaluator.register("y", new BigRational(10));
+        VariableDictionary.set("y", new BigRational(10));
         final Expression evaluatedExpressionWithXAndY = expressionEvaluator.evaluate(expression);
         assertTrue(evaluatedExpressionWithXAndY instanceof NumberExpression);
         // (5 + 10) * 5
