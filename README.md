@@ -9,16 +9,16 @@ Contents:
    - Expression Evaluator, consumes an expression and attempts to evaluate it recursively. Supports partially solving functions, and variables.
    - Custom function support via the FunctionDictionary class. Unary, Binary, Poly parameter function support.
    - BigRational class which supports fraction/decimal math in attempt to delay loss of precision until as late in the calculation as possible.
-   - Variable Support
-   - Constant Support
+   - Variable support.
+   - Variable assignment of numbers.
+   - Constant support.
    - Lots of tests.
    
 Todo:
    - Simplify fractions.
    - Some cases auto convert from integer to decimal in strange ways, investigate.
-   - Add assignment for variables / expressions
+   - Variable assignment of expressions.
   
-    
 Examples:
    - `(x + y) * x`
    - `log10(10)`
@@ -33,3 +33,4 @@ Examples:
    - `sin(45) + cos(45)`
    - `add(a, b, c)`
    - `add((a + a), (b + b))`
+   - `a = 10`
