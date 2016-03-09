@@ -4,6 +4,7 @@ import com.kennycason.soroban.number.BigRational;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * Created by kenny on 3/1/16.
@@ -31,4 +32,14 @@ public class VariableDictionary {
         return VARIABLES.containsKey(variable);
     }
 
+    public static String buildString() {
+        final StringBuilder stringBuilder = new StringBuilder();
+        for (Entry<String, BigRational> variable : VARIABLES.entrySet()) {
+            stringBuilder.append(variable.getKey());
+            stringBuilder.append(" = ");
+            stringBuilder.append(variable.getValue());
+            stringBuilder.append("\n");
+        }
+        return stringBuilder.toString();
+    }
 }

@@ -12,6 +12,7 @@ Contents:
    - Variable support.
    - Variable assignment of numbers.
    - Constant support.
+   - Interactive Cli.
    - Lots of tests.
    
 Todo:
