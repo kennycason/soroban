@@ -10,4 +10,5 @@ public class Precedence {
     public static final int PREFIX        = 4;
     public static final int POSTFIX       = 5;
     public static final int FUNCTION_CALL = 6;
+    public static final int ASSIGNMENT    = 7;
 }

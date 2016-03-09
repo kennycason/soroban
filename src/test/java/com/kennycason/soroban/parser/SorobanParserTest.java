@@ -214,6 +214,18 @@ public class SorobanParserTest {
         assertEquals("b", ((VariableExpression) right.getRight()).getValue());
     }
 
+    @Test
+    public void assignVariable() {
+        final PrattParser parser = buildParser("a = 10");
+        final Expression expression = parser.parseExpression();
+
+        final VariableAssignmentFunctionExpression variableAssignmentFunctionExpression = (VariableAssignmentFunctionExpression) expression;
+        assertEquals("a", variableAssignmentFunctionExpression.getVariableExpression().getValue());
+        assertEquals(TokenType.ASSIGNMENT, variableAssignmentFunctionExpression.getFunction().getType());
+        assertEquals("=", variableAssignmentFunctionExpression.getFunction().getValue());
+        assertEquals(new BigRational(10L), variableAssignmentFunctionExpression.getValue().getValue());
+    }
+
     private PrattParser buildParser(final String expr) {
         return new SorobanParser(
                 new TokenStream(

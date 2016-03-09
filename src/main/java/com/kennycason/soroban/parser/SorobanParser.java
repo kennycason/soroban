@@ -8,6 +8,7 @@ import com.kennycason.soroban.parser.parselets.ParenthesisGroupParselet;
 import com.kennycason.soroban.parser.parselets.VariableParselet;
 import com.kennycason.soroban.parser.parselets.infix.FunctionCallParslet;
 import com.kennycason.soroban.parser.parselets.infix.InfixBinaryFunctionParselet;
+import com.kennycason.soroban.parser.parselets.infix.VariableAssignmentFunctionParselet;
 import com.kennycason.soroban.parser.parselets.postfix.UnaryPostfixFunctionParselet;
 import com.kennycason.soroban.parser.parselets.prefix.UnaryPrefixFunctionParslet;
 
@@ -24,6 +25,7 @@ public class SorobanParser extends PrattParser {
 
         register(TokenType.LEFT_PAREN, new ParenthesisGroupParselet());
         register(TokenType.LEFT_PAREN, new FunctionCallParslet());
+        register(TokenType.ASSIGNMENT, new VariableAssignmentFunctionParselet());
 
         // prefix operators
         register(TokenType.PLUS, new UnaryPrefixFunctionParslet(Precedence.PREFIX));

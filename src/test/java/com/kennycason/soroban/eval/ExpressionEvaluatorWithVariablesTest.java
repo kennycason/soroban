@@ -31,14 +31,14 @@ public class ExpressionEvaluatorWithVariablesTest {
 
     @After
     public void after() {
-        VariableDictionary.clearAll();;
+        VariableDictionary.clearAll();
     }
 
     @Test
     public void xPlusY() {
         final Expression expression = evaluate("x + 10");
-        assertTrue(expressionEvaluator.evaluate(expression) instanceof InfixFunctionExpression);
 
+        assertTrue(expression instanceof InfixFunctionExpression);
         // set variable x = 5
         VariableDictionary.set("x", new BigRational(5));
         final Expression evaluatedExpression = expressionEvaluator.evaluate(expression);

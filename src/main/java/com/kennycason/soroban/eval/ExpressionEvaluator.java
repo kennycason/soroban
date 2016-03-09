@@ -40,6 +40,9 @@ public class ExpressionEvaluator {
         else if (expression instanceof FunctionCallExpression) {
             return evaluate((FunctionCallExpression) expression);
         }
+        else if (expression instanceof VariableAssignmentFunctionExpression) {
+            return evaluate((VariableAssignmentFunctionExpression) expression);
+        }
         throw new IllegalStateException("Unhandled expression type: " + expression.getClass());
     }
 
@@ -75,6 +78,11 @@ public class ExpressionEvaluator {
         }
         // if we can't resolve to number, return unsolved expression
         return new InfixFunctionExpression(evaulatedLeftExpression, expression.getFunction(), evaulatedRightExpression);
+    }
+
+    private Expression evaluate(final VariableAssignmentFunctionExpression expression) {
+        VariableDictionary.set(expression.getVariableExpression().getValue(), expression.getValue().getValue());
+        return expression.getValue();
     }
 
     private Expression evaluate(final FunctionCallExpression expression) {

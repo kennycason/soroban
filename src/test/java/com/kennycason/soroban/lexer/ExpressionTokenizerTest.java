@@ -46,6 +46,15 @@ public class ExpressionTokenizerTest {
     }
 
     @Test
+    public void assignment() {
+        TokenTestUtils.assertValid(expressionTokenizer.tokenize(new CharacterStream("a = 10")),
+                new Token("a", TokenType.STRING),
+                new Token("=", TokenType.ASSIGNMENT),
+                new Token("10", TokenType.NUMBER)
+        );
+    }
+
+    @Test
     public void postfix() {
         TokenTestUtils.assertValid(expressionTokenizer.tokenize(new CharacterStream("n!")),
                 new Token("n", TokenType.STRING),
