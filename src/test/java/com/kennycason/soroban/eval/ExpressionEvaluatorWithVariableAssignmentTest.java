@@ -4,10 +4,7 @@ import com.kennycason.soroban.Soroban;
 import com.kennycason.soroban.dictionary.VariableDictionary;
 import com.kennycason.soroban.lexer.token.TokenType;
 import com.kennycason.soroban.number.BigRational;
-import com.kennycason.soroban.parser.expression.Expression;
-import com.kennycason.soroban.parser.expression.InfixFunctionExpression;
-import com.kennycason.soroban.parser.expression.NumberExpression;
-import com.kennycason.soroban.parser.expression.VariableExpression;
+import com.kennycason.soroban.parser.expression.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,6 +36,7 @@ public class ExpressionEvaluatorWithVariableAssignmentTest {
         assertEquals(new BigRational(10), ((NumberExpression) evaluatedExpression).getValue());
         assertEquals(new BigRational(10), ((NumberExpression) VariableDictionary.get("x")).getValue());
 
+        // change value
         Soroban.evaluate("x = 20");
         assertEquals(new BigRational(20), ((NumberExpression) VariableDictionary.get("x")).getValue());
     }
@@ -57,6 +55,18 @@ public class ExpressionEvaluatorWithVariableAssignmentTest {
         Soroban.evaluate("a = 2");
         assertEquals(new BigRational(2), ((NumberExpression) Soroban.evaluate("a")).getValue());
         assertEquals(new BigRational(8.0), ((NumberExpression) Soroban.evaluate("x")).getValue());
+    }
+
+    // not sure if good or bad
+    @Test
+    public void chainedVariableAssignment() {
+        final Expression expression = Soroban.evaluate("x = y = 10");
+        final Expression evaluatedExpression = Soroban.evaluate(expression);
+        assertTrue(evaluatedExpression instanceof NumberExpression);
+
+        assertEquals(new BigRational(10), ((NumberExpression) evaluatedExpression).getValue());
+        assertTrue(VariableDictionary.get("x") instanceof VariableAssignmentFunctionExpression);
+        assertEquals(new BigRational(10), ((NumberExpression) VariableDictionary.get("y")).getValue());
     }
 
 }

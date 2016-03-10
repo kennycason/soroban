@@ -29,6 +29,8 @@ public class ExpressionPrinter {
         }
         else if (expression instanceof FunctionCallExpression) {
             print((FunctionCallExpression) expression, stringBuilder);
+        } else if (expression instanceof VariableAssignmentFunctionExpression) {
+            print((VariableAssignmentFunctionExpression) expression, stringBuilder);
         } else {
             throw new IllegalStateException("Unhandled expression type: " + expression.getClass());
         }
@@ -79,6 +81,10 @@ public class ExpressionPrinter {
             return;
         }
         stringBuilder.append(expression.getValue());
+    }
+
+    private void print(final VariableAssignmentFunctionExpression expression, final StringBuilder stringBuilder) {
+        print(expression.getExpression(), stringBuilder);
     }
 
 }

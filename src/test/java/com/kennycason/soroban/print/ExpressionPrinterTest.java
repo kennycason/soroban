@@ -25,4 +25,9 @@ public class ExpressionPrinterTest {
         assertEquals("sin(x) + cos(y) + 0.47669014603118814", Soroban.print("sin(x) + cos(y) + tan(PI^2)"));
     }
 
+    @Test
+    public void chainedVariableAssignment() {
+        assertEquals("10", Soroban.print("x = y = 10"));
+    }
+
 }
