@@ -34,7 +34,7 @@ public class ExpressionEvaluatorWithVariablesTest {
 
         assertTrue(expression instanceof InfixFunctionExpression);
         // set variable x = 5
-        VariableDictionary.set("x", new BigRational(5));
+        VariableDictionary.set("x", new NumberExpression(new BigRational(5)));
         final Expression evaluatedExpression = Soroban.evaluate(expression);
         assertTrue(evaluatedExpression instanceof NumberExpression);
         assertEquals(new BigRational(15), ((NumberExpression) evaluatedExpression).getValue());
@@ -50,7 +50,7 @@ public class ExpressionEvaluatorWithVariablesTest {
         assertTrue(((InfixFunctionExpression) ((InfixFunctionExpression) evaluatedExpression).getLeft()).getRight() instanceof VariableExpression);
 
         // set variable x = 5, partially solve
-        VariableDictionary.set("x", new BigRational(5));
+        VariableDictionary.set("x", new NumberExpression(new BigRational(5)));
         final Expression evaluatedExpressionWithX = Soroban.evaluate(expression);
         assertTrue(evaluatedExpressionWithX instanceof InfixFunctionExpression);
         assertTrue(((InfixFunctionExpression) evaluatedExpressionWithX).getRight() instanceof NumberExpression);
@@ -58,7 +58,7 @@ public class ExpressionEvaluatorWithVariablesTest {
         assertTrue(((InfixFunctionExpression) ((InfixFunctionExpression) evaluatedExpressionWithX).getLeft()).getRight() instanceof VariableExpression);
 
         // set varialbe y = 10, completely solve
-        VariableDictionary.set("y", new BigRational(10));
+        VariableDictionary.set("y", new NumberExpression(new BigRational(10)));
         final Expression evaluatedExpressionWithXAndY = Soroban.evaluate(expression);
         assertTrue(evaluatedExpressionWithXAndY instanceof NumberExpression);
         // (5 + 10) * 5

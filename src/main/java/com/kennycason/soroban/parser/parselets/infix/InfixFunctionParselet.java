@@ -17,12 +17,12 @@ import com.kennycason.soroban.parser.expression.InfixFunctionExpression;
  * a % 2
  * a ^ 4
  */
-public class InfixBinaryFunctionParselet implements InfixParselet {
+public class InfixFunctionParselet implements InfixParselet {
 
     private final int precedence;
     private final Associativity associativity;
 
-    public InfixBinaryFunctionParselet(final int precedence, final Associativity associativity) {
+    public InfixFunctionParselet(final int precedence, final Associativity associativity) {
         this.precedence = precedence;
         this.associativity = associativity;
     }

@@ -68,8 +68,9 @@ public class ExpressionPrinter {
 
     private void print(final VariableExpression expression, final StringBuilder stringBuilder) {
         if (VariableDictionary.isSet(expression.getValue())) {
-            stringBuilder.append(' ');
-            stringBuilder.append(VariableDictionary.get(expression.getValue()));
+            final StringBuilder varStringBuilder = new StringBuilder();
+            print(VariableDictionary.get(expression.getValue()), varStringBuilder);
+            stringBuilder.append(varStringBuilder.toString());
             return;
         }
         if (ConstantDictionary.isSet(expression.getValue())) {

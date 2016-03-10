@@ -1,6 +1,7 @@
 package com.kennycason.soroban.dictionary;
 
-import com.kennycason.soroban.number.BigRational;
+import com.kennycason.soroban.Soroban;
+import com.kennycason.soroban.parser.expression.Expression;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,15 +13,15 @@ import java.util.Map.Entry;
  * An variable dictionary
  */
 public class VariableDictionary {
-    private static final Map<String, BigRational> VARIABLES = new HashMap<>();
+    private static final Map<String, Expression> VARIABLES = new HashMap<>();
 
     private VariableDictionary() {}
 
-    public static void set(final String variable, final BigRational value) {
-        VARIABLES.put(variable, value);
+    public static void set(final String variable, final Expression expression) {
+        VARIABLES.put(variable, expression);
     }
 
-    public static BigRational get(final String variable) {
+    public static Expression get(final String variable) {
         return VARIABLES.get(variable);
     }
 
@@ -34,10 +35,10 @@ public class VariableDictionary {
 
     public static String buildString() {
         final StringBuilder stringBuilder = new StringBuilder();
-        for (Entry<String, BigRational> variable : VARIABLES.entrySet()) {
+        for (Entry<String, Expression> variable : VARIABLES.entrySet()) {
             stringBuilder.append(variable.getKey());
             stringBuilder.append(" = ");
-            stringBuilder.append(variable.getValue());
+            stringBuilder.append(Soroban.print(variable.getValue()));
             stringBuilder.append("\n");
         }
         return stringBuilder.toString();

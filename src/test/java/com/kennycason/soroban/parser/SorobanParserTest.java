@@ -219,7 +219,7 @@ public class SorobanParserTest {
         assertEquals("a", variableAssignmentFunctionExpression.getVariableExpression().getValue());
         assertEquals(TokenType.ASSIGNMENT, variableAssignmentFunctionExpression.getFunction().getType());
         assertEquals("=", variableAssignmentFunctionExpression.getFunction().getValue());
-        assertEquals(new BigRational(10L), variableAssignmentFunctionExpression.getValue().getValue());
+        assertEquals(new BigRational(10L), ((NumberExpression) variableAssignmentFunctionExpression.getExpression()).getValue());
     }
 
 }

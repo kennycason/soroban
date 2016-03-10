@@ -9,14 +9,14 @@ public class VariableAssignmentFunctionExpression implements Expression {
 
     private final VariableExpression variableExpression;
     private final Token function;
-    private final NumberExpression value;
+    private final Expression expression;
 
     public VariableAssignmentFunctionExpression(final VariableExpression variableExpression,
                                                 final Token function,
-                                                final NumberExpression value) {
+                                                final Expression expression) {
         this.variableExpression = variableExpression;
         this.function = function;
-        this.value = value;
+        this.expression = expression;
     }
 
     public VariableExpression getVariableExpression() {
@@ -27,8 +27,8 @@ public class VariableAssignmentFunctionExpression implements Expression {
         return function;
     }
 
-    public NumberExpression getValue() {
-        return value;
+    public Expression getExpression() {
+        return expression;
     }
 
 }

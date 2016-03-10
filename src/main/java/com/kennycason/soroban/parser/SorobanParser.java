@@ -7,7 +7,7 @@ import com.kennycason.soroban.parser.parselets.NumberParselet;
 import com.kennycason.soroban.parser.parselets.ParenthesisGroupParselet;
 import com.kennycason.soroban.parser.parselets.VariableParselet;
 import com.kennycason.soroban.parser.parselets.infix.FunctionCallParslet;
-import com.kennycason.soroban.parser.parselets.infix.InfixBinaryFunctionParselet;
+import com.kennycason.soroban.parser.parselets.infix.InfixFunctionParselet;
 import com.kennycason.soroban.parser.parselets.infix.VariableAssignmentFunctionParselet;
 import com.kennycason.soroban.parser.parselets.postfix.UnaryPostfixFunctionParselet;
 import com.kennycason.soroban.parser.parselets.prefix.UnaryPrefixFunctionParslet;
@@ -36,11 +36,11 @@ public class SorobanParser extends PrattParser {
         register(TokenType.EXCLAMATION, new UnaryPostfixFunctionParselet(Precedence.POSTFIX));
 
         // infix binary operators
-        register(TokenType.PLUS, new InfixBinaryFunctionParselet(Precedence.PLUS, Associativity.LEFT));
-        register(TokenType.MINUS, new InfixBinaryFunctionParselet(Precedence.PLUS, Associativity.LEFT));
-        register(TokenType.MULTIPLY, new InfixBinaryFunctionParselet(Precedence.MULTIPLY, Associativity.LEFT));
-        register(TokenType.DIVIDE, new InfixBinaryFunctionParselet(Precedence.MULTIPLY, Associativity.LEFT));
-        register(TokenType.EXPONENT, new InfixBinaryFunctionParselet(Precedence.EXPONENT, Associativity.RIGHT));
+        register(TokenType.PLUS, new InfixFunctionParselet(Precedence.PLUS, Associativity.LEFT));
+        register(TokenType.MINUS, new InfixFunctionParselet(Precedence.PLUS, Associativity.LEFT));
+        register(TokenType.MULTIPLY, new InfixFunctionParselet(Precedence.MULTIPLY, Associativity.LEFT));
+        register(TokenType.DIVIDE, new InfixFunctionParselet(Precedence.MULTIPLY, Associativity.LEFT));
+        register(TokenType.EXPONENT, new InfixFunctionParselet(Precedence.EXPONENT, Associativity.RIGHT));
     }
 
 }

@@ -81,8 +81,8 @@ public class ExpressionEvaluator {
     }
 
     private Expression evaluate(final VariableAssignmentFunctionExpression expression) {
-        VariableDictionary.set(expression.getVariableExpression().getValue(), expression.getValue().getValue());
-        return expression.getValue();
+        VariableDictionary.set(expression.getVariableExpression().getValue(), expression.getExpression());
+        return expression.getExpression();
     }
 
     private Expression evaluate(final FunctionCallExpression expression) {
@@ -99,7 +99,7 @@ public class ExpressionEvaluator {
         final List<Expression> evaluatedExpressions =
                 expression.getExpressions()
                           .stream()
-                          .map(expr -> evaluate(expr))
+                          .map(this::evaluate)
                           .collect(Collectors.toList());
 
         // if any parameter fails to resolve to a numeric value the best we can do is return the partially solved function
@@ -113,7 +113,7 @@ public class ExpressionEvaluator {
 
     private Expression evaluate(final VariableExpression expression) {
         if (VariableDictionary.isSet(expression.getValue())) {
-            return new NumberExpression(VariableDictionary.get(expression.getValue()));
+            return evaluate(VariableDictionary.get(expression.getValue()));
         }
         if (ConstantDictionary.isSet(expression.getValue())) {
             return new NumberExpression(ConstantDictionary.get(expression.getValue()));
