@@ -1,9 +1,7 @@
 package com.kennycason.soroban.parser;
 
-import com.kennycason.soroban.lexer.token.TokenStream;
+import com.kennycason.soroban.Soroban;
 import com.kennycason.soroban.lexer.token.TokenType;
-import com.kennycason.soroban.lexer.tokenizer.CharacterStream;
-import com.kennycason.soroban.lexer.tokenizer.ExpressionTokenizer;
 import com.kennycason.soroban.number.BigRational;
 import com.kennycason.soroban.parser.expression.*;
 import org.junit.Test;
@@ -14,11 +12,9 @@ import static org.junit.Assert.assertEquals;
  * Created by kenny on 3/2/16.
  */
 public class SorobanParserTest {
-    private final ExpressionTokenizer expressionTokenizer = new ExpressionTokenizer();
-
     @Test
     public void infixFunctionPower() {
-        final PrattParser parser = buildParser("a ^ 2");
+        final PrattParser parser = Soroban.parser("a ^ 2");
         final Expression expression = parser.parseExpression();
 
         final InfixFunctionExpression infixFunctionExpression = (InfixFunctionExpression) expression;
@@ -30,7 +26,7 @@ public class SorobanParserTest {
 
     @Test
     public void infixFunctionSubtract() {
-        final PrattParser parser = buildParser("a - 2");
+        final PrattParser parser = Soroban.parser("a - 2");
         final Expression expression = parser.parseExpression();
 
         final InfixFunctionExpression infixFunctionExpression = (InfixFunctionExpression) expression;
@@ -43,7 +39,7 @@ public class SorobanParserTest {
     // parse as ((1 + 1) + 1)
     @Test
     public void chainedInfixFunction() {
-        final PrattParser parser = buildParser("1 + 1 + 1");
+        final PrattParser parser = Soroban.parser("1 + 1 + 1");
         final Expression expression = parser.parseExpression();
         final InfixFunctionExpression topExpression = (InfixFunctionExpression) expression;
 
@@ -60,7 +56,7 @@ public class SorobanParserTest {
 
     @Test
     public void prefixFunction() {
-        final PrattParser parser = buildParser("sin(x)");
+        final PrattParser parser = Soroban.parser("sin(x)");
         final Expression expression = parser.parseExpression();
 
         final FunctionCallExpression functionCallExpression = (FunctionCallExpression) expression;
@@ -71,7 +67,7 @@ public class SorobanParserTest {
 
     @Test
     public void chainedPrefixFunction() {
-        final PrattParser parser = buildParser("sin(cos(x))");
+        final PrattParser parser = Soroban.parser("sin(cos(x))");
         final Expression expression = parser.parseExpression();
 
         final FunctionCallExpression functionCallExpression = (FunctionCallExpression) expression;
@@ -86,7 +82,7 @@ public class SorobanParserTest {
 
     @Test
     public void mixfix() {
-        final PrattParser parser = buildParser("sin(1 * 1)");
+        final PrattParser parser = Soroban.parser("sin(1 * 1)");
         final Expression expression = parser.parseExpression();
 
         final FunctionCallExpression functionCallExpression = (FunctionCallExpression) expression;
@@ -102,7 +98,7 @@ public class SorobanParserTest {
 
     @Test
     public void groupedInfix() {
-        final PrattParser parser = buildParser("x ^ (y ^ z)");
+        final PrattParser parser = Soroban.parser("x ^ (y ^ z)");
         final Expression expression = parser.parseExpression();
 
         final InfixFunctionExpression left = (InfixFunctionExpression) expression;
@@ -119,7 +115,7 @@ public class SorobanParserTest {
 
     @Test
     public void groupedInfixDifferentGroup() {
-        final PrattParser parser = buildParser("(x ^ y) ^ z");
+        final PrattParser parser = Soroban.parser("(x ^ y) ^ z");
         final Expression expression = parser.parseExpression();
 
         final InfixFunctionExpression topExpression = (InfixFunctionExpression) expression;
@@ -136,7 +132,7 @@ public class SorobanParserTest {
 
     @Test
     public void multiGroups() {
-        final PrattParser parser = buildParser("((x ^ y) ^ z)");
+        final PrattParser parser = Soroban.parser("((x ^ y) ^ z)");
         final Expression expression = parser.parseExpression();
 
         final InfixFunctionExpression topExpression = (InfixFunctionExpression) expression;
@@ -153,7 +149,7 @@ public class SorobanParserTest {
 
     @Test
     public void unaryPrefix() {
-        final PrattParser parser = buildParser("!n");
+        final PrattParser parser = Soroban.parser("!n");
         final Expression expression = parser.parseExpression();
 
         final PrefixUnaryFunctionExpression prefixUnaryFunctionExpression = (PrefixUnaryFunctionExpression) expression;
@@ -163,7 +159,7 @@ public class SorobanParserTest {
 
     @Test
     public void unaryPrefixNegative() {
-        final PrattParser parser = buildParser("-n");
+        final PrattParser parser = Soroban.parser("-n");
         final Expression expression = parser.parseExpression();
 
         final PrefixUnaryFunctionExpression prefixUnaryFunctionExpression = (PrefixUnaryFunctionExpression) expression;
@@ -173,7 +169,7 @@ public class SorobanParserTest {
 
     @Test
     public void unaryPostfix() {
-        final PrattParser parser = buildParser("n!");
+        final PrattParser parser = Soroban.parser("n!");
         final Expression expression = parser.parseExpression();
 
         final PostfixUnaryFunctionExpression postfixUnaryFunctionExpression = (PostfixUnaryFunctionExpression) expression;
@@ -183,7 +179,7 @@ public class SorobanParserTest {
 
     @Test
     public void polyAdd() {
-        final PrattParser parser = buildParser("add(a, b, c)");
+        final PrattParser parser = Soroban.parser("add(a, b, c)");
         final Expression expression = parser.parseExpression();
 
         final FunctionCallExpression functionCallExpression = (FunctionCallExpression) expression;
@@ -196,7 +192,7 @@ public class SorobanParserTest {
 
     @Test
     public void polyAddWithNestedExpressions() {
-        final PrattParser parser = buildParser("add((a + a), (b + b))");
+        final PrattParser parser = Soroban.parser("add((a + a), (b + b))");
         final Expression expression = parser.parseExpression();
 
         final FunctionCallExpression functionCallExpression = (FunctionCallExpression) expression;
@@ -216,7 +212,7 @@ public class SorobanParserTest {
 
     @Test
     public void assignVariable() {
-        final PrattParser parser = buildParser("a = 10");
+        final PrattParser parser = Soroban.parser("a = 10");
         final Expression expression = parser.parseExpression();
 
         final VariableAssignmentFunctionExpression variableAssignmentFunctionExpression = (VariableAssignmentFunctionExpression) expression;
@@ -224,13 +220,6 @@ public class SorobanParserTest {
         assertEquals(TokenType.ASSIGNMENT, variableAssignmentFunctionExpression.getFunction().getType());
         assertEquals("=", variableAssignmentFunctionExpression.getFunction().getValue());
         assertEquals(new BigRational(10L), variableAssignmentFunctionExpression.getValue().getValue());
-    }
-
-    private PrattParser buildParser(final String expr) {
-        return new SorobanParser(
-                new TokenStream(
-                        expressionTokenizer.tokenize(
-                                new CharacterStream(expr))));
     }
 
 }

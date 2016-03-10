@@ -1,4 +1,4 @@
-package com.kennycason.soroban;
+package com.kennycason.soroban.dictionary;
 
 import com.kennycason.soroban.number.BigRational;
 

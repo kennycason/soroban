@@ -1,10 +1,9 @@
 package com.kennycason.soroban.lexer;
 
+import com.kennycason.soroban.Soroban;
 import com.kennycason.soroban.lexer.exception.LexerException;
 import com.kennycason.soroban.lexer.token.Token;
 import com.kennycason.soroban.lexer.token.TokenType;
-import com.kennycason.soroban.lexer.tokenizer.CharacterStream;
-import com.kennycason.soroban.lexer.tokenizer.ExpressionTokenizer;
 import org.junit.Test;
 
 /**
@@ -12,17 +11,15 @@ import org.junit.Test;
  */
 public class ExpressionTokenizerTest {
 
-    private final ExpressionTokenizer expressionTokenizer = new ExpressionTokenizer();
-
     @Test
     public void basic() {
-        TokenTestUtils.assertValid(expressionTokenizer.tokenize(new CharacterStream("1 + 1")),
+        TokenTestUtils.assertValid(Soroban.tokenize("1 + 1"),
                 new Token("1", TokenType.NUMBER),
                 new Token("+", TokenType.PLUS),
                 new Token("1", TokenType.NUMBER)
         );
 
-        TokenTestUtils.assertValid(expressionTokenizer.tokenize(new CharacterStream("1 + 1 / 30")),
+        TokenTestUtils.assertValid(Soroban.tokenize("1 + 1 / 30"),
                 new Token("1", TokenType.NUMBER),
                 new Token("+", TokenType.PLUS),
                 new Token("1", TokenType.NUMBER),
@@ -30,14 +27,14 @@ public class ExpressionTokenizerTest {
                 new Token("30", TokenType.NUMBER)
         );
 
-        TokenTestUtils.assertValid(expressionTokenizer.tokenize(new CharacterStream("sin(10)")),
+        TokenTestUtils.assertValid(Soroban.tokenize("sin(10)"),
                 new Token("sin", TokenType.STRING),
                 new Token("(", TokenType.LEFT_PAREN),
                 new Token("10", TokenType.NUMBER),
                 new Token(")", TokenType.RIGHT_PAREN)
         );
 
-        TokenTestUtils.assertValid(expressionTokenizer.tokenize(new CharacterStream("log10(10)")),
+        TokenTestUtils.assertValid(Soroban.tokenize("log10(10)"),
                 new Token("log10", TokenType.STRING),
                 new Token("(", TokenType.LEFT_PAREN),
                 new Token("10", TokenType.NUMBER),
@@ -47,7 +44,7 @@ public class ExpressionTokenizerTest {
 
     @Test
     public void assignment() {
-        TokenTestUtils.assertValid(expressionTokenizer.tokenize(new CharacterStream("a = 10")),
+        TokenTestUtils.assertValid(Soroban.tokenize("a = 10"),
                 new Token("a", TokenType.STRING),
                 new Token("=", TokenType.ASSIGNMENT),
                 new Token("10", TokenType.NUMBER)
@@ -56,11 +53,11 @@ public class ExpressionTokenizerTest {
 
     @Test
     public void postfix() {
-        TokenTestUtils.assertValid(expressionTokenizer.tokenize(new CharacterStream("n!")),
+        TokenTestUtils.assertValid(Soroban.tokenize("n!"),
                 new Token("n", TokenType.STRING),
                 new Token("!", TokenType.EXCLAMATION)
         );
-        TokenTestUtils.assertValid(expressionTokenizer.tokenize(new CharacterStream("10!")),
+        TokenTestUtils.assertValid(Soroban.tokenize("10!"),
                 new Token("10", TokenType.NUMBER),
                 new Token("!", TokenType.EXCLAMATION)
         );
@@ -69,12 +66,12 @@ public class ExpressionTokenizerTest {
     // if unknown should throw exception
     @Test(expected = LexerException.class)
     public void unknownPostfix() {
-        expressionTokenizer.tokenize(new CharacterStream("n#"));
+        Soroban.tokenize("n#");
     }
 
     @Test
     public void fullExpression() {
-        TokenTestUtils.assertValid(expressionTokenizer.tokenize(new CharacterStream("(pi ^ 2) / x * -2y")),
+        TokenTestUtils.assertValid(Soroban.tokenize("(pi ^ 2) / x * -2y"),
                 new Token("(", TokenType.LEFT_PAREN),
                 new Token("pi", TokenType.STRING),
                 new Token("^", TokenType.EXPONENT),
@@ -91,7 +88,7 @@ public class ExpressionTokenizerTest {
 
     @Test
     public void binaryAndHex() {
-        TokenTestUtils.assertValid(expressionTokenizer.tokenize(new CharacterStream("0b1010101 + 0x99ddff - 0xABCDEF * 0b1")),
+        TokenTestUtils.assertValid(Soroban.tokenize("0b1010101 + 0x99ddff - 0xABCDEF * 0b1"),
                 new Token("1010101", TokenType.NUMBER),
                 new Token("+", TokenType.PLUS),
                 new Token("99ddff", TokenType.NUMBER),

@@ -1,8 +1,8 @@
 package com.kennycason.soroban.eval;
 
-import com.kennycason.soroban.ConstantDictionary;
-import com.kennycason.soroban.FunctionDictionary;
-import com.kennycason.soroban.VariableDictionary;
+import com.kennycason.soroban.dictionary.ConstantDictionary;
+import com.kennycason.soroban.dictionary.FunctionDictionary;
+import com.kennycason.soroban.dictionary.VariableDictionary;
 import com.kennycason.soroban.eval.exception.EvaluationException;
 import com.kennycason.soroban.function.binary.BinaryFunction;
 import com.kennycason.soroban.function.poly.PolyFunction;

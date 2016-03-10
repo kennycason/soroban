@@ -1,7 +1,7 @@
 package com.kennycason.soroban.print;
 
-import com.kennycason.soroban.ConstantDictionary;
-import com.kennycason.soroban.VariableDictionary;
+import com.kennycason.soroban.dictionary.ConstantDictionary;
+import com.kennycason.soroban.dictionary.VariableDictionary;
 import com.kennycason.soroban.parser.expression.*;
 
 /**
