@@ -1,4 +1,4 @@
-class Call < Formula
+class Soroban < Formula
   desc "Soroban: A Command Line Calculator"
   homepage "https://github.com/kennycason/soroban"
   url "http://search.maven.org/remotecontent?filepath=com/kennycason/soroban/1.1/soroban-1.1.jar"
