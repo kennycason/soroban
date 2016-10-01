@@ -1,48 +1,45 @@
 package com.kennycason.soroban.cli;
 
-import com.kennycason.soroban.Soroban;
-import com.kennycason.soroban.dictionary.VariableDictionary;
-import com.kennycason.soroban.parser.exception.ParserException;
-
-import java.util.Scanner;
+import com.kennycason.soroban.cli.commands.*;
 
 /**
  * Created by kenny on 3/9/16.
  */
 public class SorobanCli {
+    private static final SingleCommand SINGLE_COMMAND = new SingleCommand();
+    private static final InteractiveCommand INTERACTIVE_COMMAND = new InteractiveCommand();
+    private static final FileReadCommand FILE_READ_COMMAND = new FileReadCommand();
+    private static final VersionCommand VERSION_COMMAND = new VersionCommand();
+    private static final HelpCommand HELP_COMMAND = new HelpCommand();
 
-    public static final void main(String[] args) {
-        new SorobanCli().run();
-    }
-
-    public void run() {
-        boolean running = true;
-        while (running) {
-            System.out.print("> ");
-            final Scanner scanner = new Scanner(System.in);
-            running = processInput(scanner.nextLine());
+    public static final void main(final String[] args) {
+        if (args.length == 0) {
+            HELP_COMMAND.execute();
         }
-    }
+        switch (args[0].toLowerCase()) {
+            case "-i":
+            case "--interactive":
+                INTERACTIVE_COMMAND.execute();
+                break;
 
-    private boolean processInput(final String input) {
-        switch (input) {
-            case "exit":
-                System.out.println("Good Bye");
-                return false;
+            case "-v":
+            case "--version":
+                VERSION_COMMAND.execute();
+                break;
 
-            case "memory":
-                System.out.println(VariableDictionary.buildString());
+            case "-h":
+            case "--help":
+                HELP_COMMAND.execute();
                 break;
 
             default:
-                try {
-                    System.out.println(Soroban.print(input));
-                } catch (ParserException e) {
-                    System.out.println(e);
+                if (FILE_READ_COMMAND.isFile(args[0])) {
+                    FILE_READ_COMMAND.execute(args[0]);
+                } else {
+
+                    SINGLE_COMMAND.execute(String.join(" ", args));
                 }
-                break;
         }
-        return true;
     }
 
 }

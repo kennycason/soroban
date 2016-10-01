@@ -1,9 +1,45 @@
 Soroban (算盤/Abacus)
-===========
+====================
 
-Calculator Library in Java. This library is my attempt at the infamous "calculator app"
+Command Line Calculator Tool in Java. 
 
-Contents:
+### Usage
+
+#### Execute a single expression
+
+```bash
+soroban ln(E) * PI / 2
+```
+
+#### Enter Interactive mode
+
+```bash
+soroban -i
+```
+
+#### Load commands from file
+
+Load a file of commands, one command per line, and execute them sequentially. 
+
+```bash
+soroban programs/test.soro 
+soroban /full/path/to/file.soro 
+```
+
+#### Print Help
+
+```bash
+soroban -h
+```
+
+#### Print version
+
+```bash
+soroban -v
+```
+
+
+### Contents
    - Lexer implementation. Character/Token stream generators.
    - The Parser, single pass via Pratt Parser. Can parse prefix/postfix/infix/mixfix mathematical grammars. Produces Expression trees.
    - Expression Evaluator, consumes an expression and attempts to evaluate it recursively. Supports partially solving functions, and variables.
@@ -15,12 +51,12 @@ Contents:
    - Interactive Cli.
    - Lots of tests.
    
-Todo:
+#### Todo
    - Simplify fractions.
    - Some cases auto convert from integer to decimal in strange ways, investigate.
    - Variable assignment of expressions.
   
-Examples:
+### Example Expressions
    - `(x + y) * x`
    - `log10(10)`
    - `ln(2.718)`
@@ -37,7 +73,36 @@ Examples:
    - `a = 10`
    - `x = a ^ 3`
    
-Interactive CLI Demo:
+   
+### Install
+
+#### Brew Install
+
+```bash
+brew install https://raw.githubusercontent.com/kennycason/soroban/master/script/brew/soroban.rb
+```
+
+#### Install (via Bash Script)
+
+A helper script has been added to install Run. Java is required to run.
+The install is a single a jar from Maven Central.
+
+```bash
+bash <(curl -s https://raw.githubusercontent.com/kennycason/soroban/master/script/install.sh)
+```
+
+#### Maven Install (To include in other code)
+
+```xml
+<dependency>
+    <groupId>com.kennycason</groupId>
+    <artifactId>soroban</artifactId>
+    <version>1.1</version>
+</dependency>
+```
+   
+   
+### Interactive CLI Demo:
 ```
 > 10
 10
