@@ -10,6 +10,7 @@ import java.math.RoundingMode;
  */
 public class BigRational {
     public static final BigRational ZERO = new BigRational(BigInteger.ZERO);
+    public static final BigRational ONE = new BigRational(BigInteger.ONE);
 
     private final BigInteger numerator;
     private final BigInteger denominator;

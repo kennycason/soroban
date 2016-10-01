@@ -80,7 +80,7 @@ public class ExpressionEvaluator {
         return new InfixFunctionExpression(evaulatedLeftExpression, expression.getFunction(), evaulatedRightExpression);
     }
 
-    private Expression evaluate(final VariableAssignmentFunctionExpression expression) {
+    private static Expression evaluate(final VariableAssignmentFunctionExpression expression) {
         VariableDictionary.set(expression.getVariableExpression().getValue(), expression.getExpression());
         return expression.getExpression();
     }
@@ -121,7 +121,7 @@ public class ExpressionEvaluator {
         return expression;
     }
 
-    private Expression evaluatePolyFunction(final Token function, final List<Expression> parameters) {
+    private static Expression evaluatePolyFunction(final Token function, final List<Expression> parameters) {
         final PolyFunction polyFunction = FunctionDictionary.getPoly(function.getValue());
         if (polyFunction == null) {
             throw new EvaluationException("Function [" + function.getValue() + "] does not exist");
@@ -132,7 +132,7 @@ public class ExpressionEvaluator {
                         .collect(Collectors.toList())));
     }
 
-    private NumberExpression evaluateBinaryInfixFunction(final Token function, final NumberExpression left, final NumberExpression right) {
+    private static NumberExpression evaluateBinaryInfixFunction(final Token function, final NumberExpression left, final NumberExpression right) {
         final BinaryFunction binaryFunction = FunctionDictionary.getBinary(function.getValue());
         if (binaryFunction == null) {
             throw new EvaluationException("Function [" + function.getValue() + "] does not exist");
@@ -140,7 +140,7 @@ public class ExpressionEvaluator {
         return new NumberExpression(binaryFunction.apply(left.getValue(), right.getValue()));
     }
 
-    private NumberExpression evaluateUnaryPostfixFunction(final Token function, final NumberExpression numberExpression) {
+    private static NumberExpression evaluateUnaryPostfixFunction(final Token function, final NumberExpression numberExpression) {
         final UnaryFunction unaryFunction = FunctionDictionary.getUnaryPostfix(function.getValue());
         if (unaryFunction == null) {
             throw new EvaluationException("Function [" + function.getValue() + "] does not exist");
@@ -148,7 +148,7 @@ public class ExpressionEvaluator {
         return new NumberExpression(unaryFunction.apply(numberExpression.getValue()));
     }
 
-    private NumberExpression evaluateUnaryPrefixFunction(final Token function, final NumberExpression numberExpression) {
+    private static NumberExpression evaluateUnaryPrefixFunction(final Token function, final NumberExpression numberExpression) {
         final UnaryFunction unaryFunction = FunctionDictionary.getUnaryPrefix(function.getValue());
         if (unaryFunction == null) {
             throw new EvaluationException("Prefix function [" + function.getValue() + "] does not exist");

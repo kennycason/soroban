@@ -33,6 +33,7 @@ public class SorobanCli {
                 break;
 
             default:
+                if (args[0].isEmpty()) { break; }
                 if (FILE_READ_COMMAND.isFile(args[0])) {
                     FILE_READ_COMMAND.execute(args[0]);
                 } else {

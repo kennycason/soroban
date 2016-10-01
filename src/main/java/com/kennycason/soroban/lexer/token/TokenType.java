@@ -15,6 +15,7 @@ public enum  TokenType {
     MULTIPLY,
     DIVIDE,
     EXPONENT,
+    MODULUS,
 
     EXCLAMATION,
     COMMA

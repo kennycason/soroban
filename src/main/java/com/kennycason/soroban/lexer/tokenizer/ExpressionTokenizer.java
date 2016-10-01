@@ -50,6 +50,9 @@ public class ExpressionTokenizer {
                 case '=':
                     tokens.add(new Token(String.valueOf(tokenStream.next()), TokenType.ASSIGNMENT));
                     continue;
+                case '%':
+                    tokens.add(new Token(String.valueOf(tokenStream.next()), TokenType.MODULUS));
+                    continue;
                 case ' ':
                     tokenStream.next(); // ignore token
                     continue;

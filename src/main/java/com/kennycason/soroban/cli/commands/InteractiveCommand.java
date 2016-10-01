@@ -24,6 +24,7 @@ public class InteractiveCommand {
                 return false;
 
             default:
+                if (command.isEmpty()) { break; }
                 EXECUTE_COMMAND.execute(command);
                 break;
         }

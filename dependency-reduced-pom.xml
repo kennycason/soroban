@@ -4,7 +4,7 @@
   <groupId>com.kennycason</groupId>
   <artifactId>soroban</artifactId>
   <name>Soroban</name>
-  <version>1.0</version>
+  <version>1.2</version>
   <description>Soroban is a command line calculator tool</description>
   <url>https://github.com/kennycason/soroban</url>
   <prerequisites>

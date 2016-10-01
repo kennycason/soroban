@@ -4,6 +4,7 @@ import com.kennycason.soroban.function.binary.BinaryFunction;
 import com.kennycason.soroban.function.binary.arithmetic.*;
 import com.kennycason.soroban.function.poly.PolyFunction;
 import com.kennycason.soroban.function.poly.arithmetic.AddPolyFunction;
+import com.kennycason.soroban.function.poly.arithmetic.MultiplyPolyFunction;
 import com.kennycason.soroban.function.unary.UnaryFunction;
 import com.kennycason.soroban.function.unary.arithmetic.*;
 import com.kennycason.soroban.function.unary.trignometry.*;
@@ -51,14 +52,18 @@ public class FunctionDictionary {
         registerBinary("div", new DivideFunction());
         registerBinary("add", new AddFunction());
         registerBinary("sub", new SubtractFunction());
+        registerBinary("mod", new ModulosFunction());
+
         // short names commonly used in infix functions
         registerBinary("^", new ExponentFunction());
         registerBinary("*", new MultiplyFunction());
         registerBinary("/", new DivideFunction());
         registerBinary("+", new AddFunction());
         registerBinary("-", new SubtractFunction());
+        registerBinary("%", new ModulosFunction());
 
         registerPoly("add", new AddPolyFunction());
+        registerPoly("mul", new MultiplyPolyFunction());
     }
 
     private FunctionDictionary() {}

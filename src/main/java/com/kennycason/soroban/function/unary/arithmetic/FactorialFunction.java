@@ -20,7 +20,7 @@ public class FactorialFunction implements UnaryFunction {
         return applyToDecimal(input);
     }
 
-    private BigRational applyToFraction(final BigRational input) {
+    private static BigRational applyToFraction(final BigRational input) {
         if (input.getDenominator().equals(BigInteger.ONE)) {
             return applyToWholeNumber(input.getNumerator());
         }
