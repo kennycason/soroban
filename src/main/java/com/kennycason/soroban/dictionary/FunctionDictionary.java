@@ -2,11 +2,15 @@ package com.kennycason.soroban.dictionary;
 
 import com.kennycason.soroban.function.binary.BinaryFunction;
 import com.kennycason.soroban.function.binary.arithmetic.*;
+import com.kennycason.soroban.function.binary.bool.LogicalAndFunction;
+import com.kennycason.soroban.function.binary.bool.LogicalOrFunction;
+import com.kennycason.soroban.function.binary.bool.LogicalXorFunction;
 import com.kennycason.soroban.function.poly.PolyFunction;
 import com.kennycason.soroban.function.poly.arithmetic.AddPolyFunction;
 import com.kennycason.soroban.function.poly.arithmetic.MultiplyPolyFunction;
 import com.kennycason.soroban.function.unary.UnaryFunction;
 import com.kennycason.soroban.function.unary.arithmetic.*;
+import com.kennycason.soroban.function.unary.bool.LogicalNotFunction;
 import com.kennycason.soroban.function.unary.trignometry.*;
 
 import java.util.HashMap;
@@ -43,7 +47,7 @@ public class FunctionDictionary {
         registerUnaryPrefix("cosh", new HyperbolicCosineFunction());
         registerUnaryPrefix("tanh", new HyperbolicTangentFunction());
         registerUnaryPrefix("reduce", new ReduceFractionFunction());
-
+        registerUnaryPrefix("!", new LogicalNotFunction());
         registerUnaryPostfix("!", new FactorialFunction());
 
 
@@ -55,6 +59,10 @@ public class FunctionDictionary {
         registerBinary("mod", new ModulosFunction());
         registerBinary("gcd", new GcdFunction());
         registerBinary("lcm", new LcmFunction());
+        // boolean functions
+        registerBinary("and", new LogicalAndFunction());
+        registerBinary("or", new LogicalOrFunction());
+        registerBinary("xor", new LogicalXorFunction());
 
         // short names commonly used in infix functions
         registerBinary("^", new ExponentFunction());
@@ -63,6 +71,10 @@ public class FunctionDictionary {
         registerBinary("+", new AddFunction());
         registerBinary("-", new SubtractFunction());
         registerBinary("%", new ModulosFunction());
+        // boolean functions
+        registerBinary("&", new LogicalAndFunction());
+        registerBinary("|", new LogicalOrFunction());
+
 
         registerPoly("add", new AddPolyFunction());
         registerPoly("mul", new MultiplyPolyFunction());

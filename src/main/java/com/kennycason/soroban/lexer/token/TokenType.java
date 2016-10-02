@@ -16,6 +16,8 @@ public enum  TokenType {
     DIVIDE,
     EXPONENT,
     MODULUS,
+    LOGICAL_AND,
+    LOGICAL_OR,
 
     EXCLAMATION,
     COMMA

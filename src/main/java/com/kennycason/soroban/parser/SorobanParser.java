@@ -41,6 +41,8 @@ public class SorobanParser extends PrattParser {
         register(TokenType.MULTIPLY, new InfixFunctionParselet(Precedence.MULTIPLY, Associativity.LEFT));
         register(TokenType.DIVIDE, new InfixFunctionParselet(Precedence.MULTIPLY, Associativity.LEFT));
         register(TokenType.MODULUS, new InfixFunctionParselet(Precedence.MULTIPLY, Associativity.LEFT));
+        register(TokenType.LOGICAL_AND, new InfixFunctionParselet(Precedence.MULTIPLY, Associativity.LEFT));
+        register(TokenType.LOGICAL_OR, new InfixFunctionParselet(Precedence.MULTIPLY, Associativity.LEFT));
         register(TokenType.EXPONENT, new InfixFunctionParselet(Precedence.EXPONENT, Associativity.RIGHT));
     }
 

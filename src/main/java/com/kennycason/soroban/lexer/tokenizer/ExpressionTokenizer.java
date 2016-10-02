@@ -53,6 +53,12 @@ public class ExpressionTokenizer {
                 case '%':
                     tokens.add(new Token(String.valueOf(tokenStream.next()), TokenType.MODULUS));
                     continue;
+                case '&':
+                    tokens.add(new Token(String.valueOf(tokenStream.next()), TokenType.LOGICAL_AND));
+                    continue;
+                case '|':
+                    tokens.add(new Token(String.valueOf(tokenStream.next()), TokenType.LOGICAL_OR));
+                    continue;
                 case ' ':
                     tokenStream.next(); // ignore token
                     continue;
