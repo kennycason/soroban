@@ -72,6 +72,10 @@ soroban -v
    - `add((a + a), (b + b))`
    - `a = 10`
    - `x = a ^ 3`
+   - `reduce(10/30)`
+   - `0b101 & 0b100`
+   - `gcd(50,10)`
+   - `lcm(3,9)`
    
    
 ### Install
@@ -97,7 +101,7 @@ bash <(curl -s https://raw.githubusercontent.com/kennycason/soroban/master/scrip
 <dependency>
     <groupId>com.kennycason</groupId>
     <artifactId>soroban</artifactId>
-    <version>1.3</version>
+    <version>1.4</version>
 </dependency>
 ```
    
