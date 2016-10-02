@@ -42,7 +42,7 @@ public class FunctionDictionary {
         registerUnaryPrefix("sinh", new HyperbolicSineFunction());
         registerUnaryPrefix("cosh", new HyperbolicCosineFunction());
         registerUnaryPrefix("tanh", new HyperbolicTangentFunction());
-
+        registerUnaryPrefix("reduce", new ReduceFractionFunction());
 
         registerUnaryPostfix("!", new FactorialFunction());
 
@@ -53,6 +53,8 @@ public class FunctionDictionary {
         registerBinary("add", new AddFunction());
         registerBinary("sub", new SubtractFunction());
         registerBinary("mod", new ModulosFunction());
+        registerBinary("gcd", new GcdFunction());
+        registerBinary("lcm", new LcmFunction());
 
         // short names commonly used in infix functions
         registerBinary("^", new ExponentFunction());

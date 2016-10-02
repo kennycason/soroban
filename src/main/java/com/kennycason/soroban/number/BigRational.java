@@ -36,7 +36,6 @@ public class BigRational {
         this.value = new BigDecimal(value);
     }
 
-
     public BigRational(final BigInteger numerator, final BigInteger denominator) {
         this.numerator = numerator;
         this.denominator = denominator;
@@ -60,8 +59,12 @@ public class BigRational {
         return numerator != null && denominator != null;
     }
 
+    public boolean isInteger() {
+        return isFraction() && denominator.equals(BigInteger.ONE);
+    }
+
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         final BigRational compareTo = (BigRational) o;
         if (isFraction()) {
             return numerator.equals(compareTo.numerator)
