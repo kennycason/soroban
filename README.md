@@ -101,7 +101,7 @@ bash <(curl -s https://raw.githubusercontent.com/kennycason/soroban/master/scrip
 <dependency>
     <groupId>com.kennycason</groupId>
     <artifactId>soroban</artifactId>
-    <version>1.4</version>
+    <version>1.5</version>
 </dependency>
 ```
    
