@@ -14,7 +14,7 @@ public class SorobanCli {
 
     public static final void main(final String[] args) {
         if (args.length == 0) {
-            HELP_COMMAND.execute();
+            INTERACTIVE_COMMAND.execute();
         }
         switch (args[0].toLowerCase()) {
             case "-i":
