@@ -5,6 +5,6 @@ package com.kennycason.soroban.cli.commands;
  */
 public class VersionCommand {
     public void execute() {
-        System.out.println("Soroban version 1.3");
+        System.out.println("Soroban version 1.4");
     }
 }
